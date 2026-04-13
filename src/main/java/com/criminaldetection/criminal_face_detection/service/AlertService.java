@@ -35,7 +35,7 @@ public class AlertService {
 
     public void sendWebSocketAlert(Criminal criminal, double confidenceScore){
         AlertResponse alertResponse = new AlertResponse(
-                criminal.getFull_name(),
+                criminal.getFullName(),
                 criminal.getCrimeType(),
                 confidenceScore,
                 "Match Found - Immediate attention required",

@@ -8,11 +8,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
-    @Value("${python.service.url}")
-    private String serviceUrl;
+
+    @Value("${faceapi.base.url}")
+    private String faceapiBaseUrl;
 
     @Bean
     public WebClient webClient() {
-        return WebClient.builder().baseUrl(serviceUrl).build();
+
+        return WebClient.builder().baseUrl(faceapiBaseUrl).build();
     }
 }

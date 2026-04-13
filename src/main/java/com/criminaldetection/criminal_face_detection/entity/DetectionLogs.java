@@ -25,23 +25,23 @@ public class DetectionLogs {
     @JoinColumn(name = "matched_criminal_id")
     private Criminal criminal;
 
-    private  String upload_image_key;
+    private  String uploadImageKey;
 
-    private double confidence_score;
+    private double confidenceScore;
 
-    private Boolean is_matched;
+    private Boolean isMatched;
 
-    private LocalDateTime detected_at;
+    private LocalDateTime detectedAt;
 
     public DetectionLogs() {}
 
-    public DetectionLogs(User operator, Criminal criminal, String upload_image_key, double confidence_score, Boolean is_matched,  LocalDateTime detected_at) {
+    public DetectionLogs(User operator, Criminal criminal, String upload_image_key, double confidence_score, Boolean is_matched) {
         this.operator = operator;
         this.criminal = criminal;
-        this.upload_image_key = upload_image_key;
-        this.confidence_score = confidence_score;
-        this.is_matched = is_matched;
-        this.detected_at = detected_at;
+        this.uploadImageKey = upload_image_key;
+        this.confidenceScore = confidence_score;
+        this.isMatched = is_matched;
+        this.detectedAt = LocalDateTime.now();
     }
 
 }

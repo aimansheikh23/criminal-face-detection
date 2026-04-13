@@ -23,31 +23,36 @@ public class CriminalService {
     @Autowired
     private CriminalPhotoRepository criminalPhotoRepository;
 
-    public void addCriminalRecord(Criminal criminal){
+    @Autowired
+    private FaceApiService faceApiService;
+
+    public void  addCriminalRecord(Criminal criminal){
+
         criminalRepository.save(criminal);
     }
 
-    public void addCriminalPhoto(Integer criminal_id, String imageUrl, String minioKey){
+    public void addCriminalPhoto(Integer criminal_id, String minioKey){
 
         Criminal criminal = criminalRepository.findById(criminal_id).orElseThrow(() -> new ResourceNotFoundException("Criminal not found"));
 
+        String faceToken = faceApiService.addFaceToFaceSet(minioKey);
         CriminalPhoto photo = new CriminalPhoto();
         photo.setCriminal(criminal);
-        photo.setImageUrl(imageUrl);
         photo.setMinioObjectKey(minioKey);
+        photo.setFaceToken(faceToken);
         criminalPhotoRepository.save(photo);
     }
 
     public CriminalResponse getCriminal(Integer criminal_id){
         Criminal criminalData = criminalRepository.findById(criminal_id).orElseThrow(() -> new ResourceNotFoundException("Criminal Record not Found"));
-        return new CriminalResponse(criminalData.getFull_name(), criminalData.getCrimeType(), criminalData.getStatus(), criminalData.getAlias());
+        return new CriminalResponse(criminalData.getFullName(), criminalData.getCrimeType(), criminalData.getStatus(), criminalData.getAlias());
     }
 
     public List<CriminalResponse> getCriminalByStatus(Status status){
         List<Criminal> criminal = criminalRepository.findByStatus(status);
         List<CriminalResponse> responses = new ArrayList<>();
         for(Criminal criminalData : criminal){
-            responses.add(new CriminalResponse(criminalData.getFull_name(), criminalData.getCrimeType(), criminalData.getStatus(), criminalData.getAlias()));
+            responses.add(new CriminalResponse(criminalData.getFullName(), criminalData.getCrimeType(), criminalData.getStatus(), criminalData.getAlias()));
         }
         return responses;
     }
@@ -60,7 +65,7 @@ public class CriminalService {
 
     public void deleteCriminalData(Integer id){
         Criminal criminal = criminalRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Criminal not found"));
-        List<CriminalPhoto> criminalPhotos = criminalPhotoRepository.findByCriminalId(id);
+        List<CriminalPhoto> criminalPhotos = criminalPhotoRepository.findAllByCriminalId(id);
 
         criminalPhotoRepository.deleteAll(criminalPhotos);
         criminalRepository.delete(criminal);

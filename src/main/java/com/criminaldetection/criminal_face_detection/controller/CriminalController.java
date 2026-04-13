@@ -5,8 +5,10 @@ import com.criminaldetection.criminal_face_detection.dto.CriminalResponse;
 import com.criminaldetection.criminal_face_detection.entity.Criminal;
 import com.criminaldetection.criminal_face_detection.enums.Status;
 import com.criminaldetection.criminal_face_detection.service.CriminalService;
+import com.criminaldetection.criminal_face_detection.service.MinIoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,6 +19,9 @@ public class CriminalController {
     @Autowired
     private CriminalService criminalService;
 
+    @Autowired
+    private MinIoService minIoService;
+
     @PostMapping("/criminal")
     public String saveCriminalData(@RequestBody Criminal criminal){
         criminalService.addCriminalRecord(criminal);
@@ -24,8 +29,10 @@ public class CriminalController {
     }
 
     @PostMapping("/criminal/{id}/photo")
-    public String saveCriminalPhoto(@PathVariable Integer id, @RequestParam String imageUrl, @RequestParam String  minioKey){
-        criminalService.addCriminalPhoto(id, imageUrl, minioKey);
+    public String saveCriminalPhoto(@PathVariable Integer id, @RequestParam("image") MultipartFile image){
+
+        String minioKey = minIoService.uploadImage(image);
+        criminalService.addCriminalPhoto(id, minioKey);
         return "Criminal photo has been added successfully";
     }
 

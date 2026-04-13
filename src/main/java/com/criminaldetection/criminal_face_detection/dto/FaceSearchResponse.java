@@ -3,12 +3,10 @@ package com.criminaldetection.criminal_face_detection.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
-public class FaceEmbeddingResponse {
-    private List<Float> faceEmbeddings;
-
+public class FaceSearchResponse {
+    private String faceToken;
+    private double confidence;
     private String message;
 }

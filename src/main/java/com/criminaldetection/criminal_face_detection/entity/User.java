@@ -27,7 +27,7 @@ public class User {
     private String password;
 
     
-    private Boolean is_active;
+    private Boolean isActive;
 
     
     @Enumerated(EnumType.STRING)
@@ -44,7 +44,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
-        this.is_active = is_active;
+        this.isActive = is_active;
         this.created_at = created_at;
     }
 }

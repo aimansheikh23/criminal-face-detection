@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,7 +20,7 @@ public class Criminal {
     private Integer id;
 
     
-    private String full_name;
+    private String fullName;
 
     
     private String alias;
@@ -40,19 +41,16 @@ public class Criminal {
     
     private String description;
 
-    
-    private Date created_at;
 
     public Criminal(){}
 
-    public Criminal(String full_name, String  alias, Date dob, CrimeType crimeType, Status status, String description, Date created_at){
-        this.full_name = full_name;
+    public Criminal(String full_name, String  alias, Date dob, CrimeType crimeType, Status status, String description){
+        this.fullName = full_name;
         this.alias = alias;
         this.dob = dob;
         this.crimeType = crimeType;
         this.status = status;
         this.description = description;
-        this.created_at = created_at;
     }
 
 

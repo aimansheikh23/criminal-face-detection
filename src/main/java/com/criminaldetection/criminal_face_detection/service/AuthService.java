@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class AuthService {
 
@@ -35,9 +37,11 @@ public class AuthService {
 
         User user = new User();
         user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.valueOf(request.getRole()));
-        user.setIs_active(true);
+        user.setIsActive(true);
+        user.setCreated_at(new Date());
 
         userRepository.save(user);
 

@@ -23,22 +23,15 @@ public class CriminalPhoto {
     @Column(name = "minio_object_key")
     private String minioObjectKey;
 
-    @Column(name = "image_url")
-    private String imageUrl;
 
-    @Column(name = "uploaded_at")
-    private LocalDateTime uploadedAt;
-
-    @Column(columnDefinition = "TEXT")
-    private String embedding;
+    @Column(name = "face_token")
+    private String faceToken;
 
     public CriminalPhoto(){}
 
-    public CriminalPhoto(Criminal criminal,  String minio_object_key, String image_url, LocalDateTime updated_at,  String embedding){
+    public CriminalPhoto(Criminal criminal,  String minio_object_key, String  face_token){
         this.criminal = criminal;
         this.minioObjectKey = minio_object_key;
-        this.imageUrl = image_url;
-        this.uploadedAt = updated_at;
-        this.embedding = embedding;
+        this.faceToken = face_token;
     }
 }

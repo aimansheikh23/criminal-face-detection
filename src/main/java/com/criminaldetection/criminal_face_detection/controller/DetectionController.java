@@ -14,8 +14,8 @@ public class DetectionController {
     private DetectionService detectionService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> upload(@RequestParam("image") MultipartFile file, @RequestParam Integer opeator_id) {
-        String result = detectionService.processDetection(file, opeator_id);
+    public ResponseEntity<String> upload(@RequestParam("image") MultipartFile file, @RequestParam Integer operator_id) {
+        String result = detectionService.processDetection(file, operator_id);
         return ResponseEntity.ok(result);
     }
 }
