@@ -33,9 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll()
                         .requestMatchers("/api/v1/criminal/**").hasRole("ADMIN")
-                        .requestMatchers("/api/v1/detector/**").hasRole("OPERATOR")
-                        .requestMatchers("/api/v1/alerts/**").hasAnyRole("ADMIN" ,"OPERATOR")
-                        .requestMatchers("/api/v1/logs/**").authenticated()
+                        .requestMatchers("/api/v1/detector/**").hasRole("OPERATOR")                        .requestMatchers("/api/v1/logs/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

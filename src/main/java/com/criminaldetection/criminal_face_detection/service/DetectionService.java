@@ -35,8 +35,6 @@ public class DetectionService {
     @Autowired
     private DetectionLogRepository detectionLogRepository;
 
-    @Autowired
-    private AlertService alertService;
 
     @Autowired
     private UserRepository  userRepository;
@@ -64,7 +62,6 @@ public class DetectionService {
 
                 detectionLogRepository.save(detectionLogs);
 
-                alertService.createAlert(detectionLogs, matchedCriminal, result.confidence);
 
                 return "Match found: " + matchedCriminal.getFullName()
                         + " | Confidence: " + String.format("%.0f", result.confidence) + "%";
